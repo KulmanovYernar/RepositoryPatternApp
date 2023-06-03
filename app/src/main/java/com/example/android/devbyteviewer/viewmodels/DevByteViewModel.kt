@@ -24,6 +24,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.android.devbyteviewer.database.getDatabase
+import com.example.android.devbyteviewer.domain.DevByteVideo
 import com.example.android.devbyteviewer.repository.VideosRepository
 import kotlinx.coroutines.*
 import java.io.IOException
@@ -62,11 +63,13 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
 
     private val videosRepository = VideosRepository(getDatabase(application))
     val playlist =  videosRepository.videos
+
+
     /**
      * Event triggered for network error. This is private to avoid exposing a
      * way to set this value to observers.
      */
-    private var _eventNetworkError = MutableLiveData(false)
+    private var _eventNetworkError = MutableLiveData<Boolean>(false)
 
     /**
      * Event triggered for network error. Views should use this to get access
@@ -79,7 +82,7 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
      * Flag to display the error message. This is private to avoid exposing a
      * way to set this value to observers.
      */
-    private var _isNetworkErrorShown = MutableLiveData(false)
+    private var _isNetworkErrorShown = MutableLiveData<Boolean>(false)
 
     /**
      * Flag to display the error message. Views should use this to get access
